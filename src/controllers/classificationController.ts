@@ -2,10 +2,15 @@ import { Request, Response } from "express";
 import PropertyModel from "../models/PropertyModel";
 import { getTagsForQuestion } from "../services/classificationService";
 
-// Important: For returning tags from user question and finding best matches
 export async function getPropertiesByQuestion(req: Request, res: Response) {
   try {
     const { question } = req.body;
+
+    if (!question) {
+      return res
+        .status(400)
+        .json({ error: "Missing question in request body" });
+    }
 
     // Retrieve tags from the LLM
     const questionTags = await getTagsForQuestion(question);

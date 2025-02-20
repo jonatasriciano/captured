@@ -5,6 +5,7 @@ import connectDB from "./config/database";
 import propertyRoutes from "./routes/propertyRoutes";
 import classificationRoutes from "./routes/classificationRoutes";
 import importRoutes from "./routes/importRoutes";
+import { setupSwagger } from "./config/swagger";
 
 // Load environment variables
 dotenv.config();
@@ -22,6 +23,8 @@ connectDB();
 app.use("/api/properties", propertyRoutes);
 app.use("/api/classification", classificationRoutes);
 app.use("/api/import", importRoutes);
+
+setupSwagger(app);
 
 app.listen(PORT, () => {
   console.log(`🚀 Captured API running on port ${PORT}`);

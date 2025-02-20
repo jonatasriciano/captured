@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import PropertyModel from "../models/PropertyModel";
 import { classifyProperty } from "../services/classificationService";
 
-// Important: For classifying all properties in the collection
 export async function classifyAllProperties(req: Request, res: Response) {
   try {
     const properties = await PropertyModel.find({
@@ -35,7 +34,6 @@ export async function classifyAllProperties(req: Request, res: Response) {
   }
 }
 
-// Important: For adding a new property
 export async function addNewProperty(req: Request, res: Response) {
   try {
     const newProperty = await PropertyModel.create(req.body);
