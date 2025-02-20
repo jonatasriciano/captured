@@ -17,33 +17,61 @@ Captured API is a **Node.js** application built with **TypeScript**, **MongoDB**
 --------------------
 
 ├── Dockerfile
+
 ├── docker-compose.yml
+
 ├── eslint.config.mjs
+
 ├── json_upload/
+
 │   └── properties.json
+
 ├── nodemon.json
+
 ├── package-lock.json
+
 ├── package.json
+
 ├── src/
+
 │   ├── config/
+
 │   │   ├── database.ts
+
 │   │   └── swagger.ts
+
 │   ├── controllers/
+
 │   │   ├── classificationController.ts
+
 │   │   └── propertyController.ts
+
 │   ├── docs/
+
 │   │   └── apiDocs.ts
+
 │   ├── interfaces/
+
 │   │   └── IProperty.ts
+
 │   ├── models/
+
 │   │   └── PropertyModel.ts
+
 │   ├── routes/
+
 │   │   ├── classificationRoutes.ts
+
 │   │   ├── importRoutes.ts
+
 │   │   └── propertyRoutes.ts
+
 │   ├── server.ts
+
 │   └── services/
+
 │       └── classificationService.ts
+
 └── tsconfig.json
         
 
