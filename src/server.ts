@@ -21,9 +21,10 @@ connectDB();
 
 // Routes
 app.use("/api/properties", propertyRoutes);
-app.use("/api/classification", classificationRoutes);
+app.use("/api/properties/search", classificationRoutes);
 app.use("/api/import", importRoutes);
 
+// Configuração do Swagger
 setupSwagger(app);
 
 app.listen(PORT, () => {

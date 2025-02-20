@@ -7,7 +7,7 @@ import {
 const router = Router();
 
 // Important: Route for classifying all existing properties
-router.post("/classifyAll", classifyAllProperties);
+router.post("/classify", classifyAllProperties);
 
 // Important: Route for adding a new property
 router.post("/", addNewProperty);

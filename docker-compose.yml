@@ -22,8 +22,9 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db
-    healthcheck: # Ensures MongoDB is ready before allowing the app to start
+      - captured_mongo_data:/data/db
+      - captured_mongo_config:/data/configdb
+    healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s
       retries: 5
@@ -31,4 +32,5 @@ services:
       timeout: 5s
 
 volumes:
-  mongo_data:
+  captured_mongo_data:
+  captured_mongo_config:
