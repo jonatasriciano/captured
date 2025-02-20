@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 // Load environment variables
 dotenv.config();
@@ -13,12 +13,12 @@ const connectDB = async () => {
     }
 
     // Set Mongoose options for compatibility
-    mongoose.set('strictQuery', false);
+    mongoose.set("strictQuery", false);
 
     await mongoose.connect(mongoUri);
-    console.log('✅ Connected to MongoDB');
+    console.log("✅ Connected to MongoDB");
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
+    console.error("❌ MongoDB connection error:", error);
     process.exit(1);
   }
 };

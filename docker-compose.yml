@@ -7,23 +7,23 @@ services:
       - "3000:3000"
     depends_on:
       mongodb:
-        condition: service_healthy  # Ensures MongoDB is ready before starting the app
+        condition: service_healthy # Ensures MongoDB is ready before starting the app
     volumes:
-      - .:/usr/src/app  # Mounts project directory into the container
-      - /usr/src/app/node_modules  # Prevents overwriting node_modules
+      - .:/usr/src/app # Mounts project directory into the container
+      - /usr/src/app/node_modules # Prevents overwriting node_modules
     env_file:
       - .env
-    command: npm run dev  # Ensures nodemon is running for live reload
+    command: npm run dev # Ensures nodemon is running for live reload
 
   mongodb:
-    image: mongo:8.0  # Use latest stable MongoDB version
+    image: mongo:8.0 # Use latest stable MongoDB version
     container_name: captured-mongo-container
     restart: always
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
-    healthcheck:  # Ensures MongoDB is ready before allowing the app to start
+    healthcheck: # Ensures MongoDB is ready before allowing the app to start
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s
       retries: 5

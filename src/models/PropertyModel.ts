@@ -1,5 +1,5 @@
-import { model, Schema } from 'mongoose';
-import { IProperty } from '../interfaces/IProperty';
+import { model, Schema } from "mongoose";
+import { IProperty } from "../interfaces/IProperty";
 
 const PropertySchema = new Schema<IProperty>({
   titulo: String,
@@ -42,9 +42,9 @@ const PropertySchema = new Schema<IProperty>({
   statusAnuncio: String,
   vagasGaragem: Number,
   valorIPTU: String,
-  tags: [String]
+  tags: [String],
 });
 
-const PropertyModel = model<IProperty>('Property', PropertySchema);
+const PropertyModel = model<IProperty>("Property", PropertySchema);
 
 export default PropertyModel;
