@@ -4,49 +4,6 @@ import path from "path";
 import PropertyModel from "../models/PropertyModel";
 
 const router = express.Router();
-
-/**
- * @swagger
- * /api/import:
- *   post:
- *     summary: Import properties from a JSON file
- *     description: Reads a file from `json_upload/properties.json` and inserts properties into the database.
- *     tags:
- *       - Import
- *     responses:
- *       200:
- *         description: Successfully imported properties
- *         content:
- *           application/json:
- *             example:
- *               message: "Import completed successfully"
- *               inserted: 10
- *               skipped: 3
- *       400:
- *         description: Bad request - File not found or invalid JSON format
- *         content:
- *           application/json:
- *             examples:
- *               FileNotFound:
- *                 summary: File not found
- *                 value:
- *                   error: "File not found in json_upload directory."
- *               InvalidJSON:
- *                 summary: Invalid JSON format
- *                 value:
- *                   error: "Invalid JSON format. Expected an array of properties."
- *               EmptyJSON:
- *                 summary: JSON file is empty
- *                 value:
- *                   error: "JSON file is empty."
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             example:
- *               error: "Internal server error"
- */
-
 router.post("/", async (req, res) => {
   try {
     const filePath = path.join(__dirname, "../../json_upload/properties.json");
