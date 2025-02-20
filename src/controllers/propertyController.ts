@@ -2,6 +2,13 @@ import { Request, Response } from "express";
 import PropertyModel from "../models/PropertyModel";
 import { classifyProperty } from "../services/classificationService";
 
+/**
+ * Classifies all properties that do not have tags.
+ *
+ * @param {Request} req - The Express request object containing the parameters.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise<Response>} A JSON response indicating the result of the classification process.
+ */
 export async function classifyAllProperties(req: Request, res: Response) {
   try {
     const properties = await PropertyModel.find({
@@ -34,6 +41,13 @@ export async function classifyAllProperties(req: Request, res: Response) {
   }
 }
 
+/**
+ * Adds a new property to the database.
+ *
+ * @param {Request} req - The Express request object containing the property data.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise<Response>} A JSON response with the newly added property.
+ */
 export async function addNewProperty(req: Request, res: Response) {
   try {
     const newProperty = await PropertyModel.create(req.body);

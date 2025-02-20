@@ -2,6 +2,13 @@ import { Request, Response } from "express";
 import PropertyModel from "../models/PropertyModel";
 import { getTagsForQuestion } from "../services/classificationService";
 
+/**
+ * Retrieves properties that match the tags extracted from a user question.
+ *
+ * @param {Request} req - The Express request object containing the question in the request body.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise<Response>} A JSON response containing the extracted question tags and matched properties.
+ */
 export async function getPropertiesByQuestion(req: Request, res: Response) {
   try {
     const { question } = req.body;

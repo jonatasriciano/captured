@@ -1,6 +1,12 @@
 import axios from "axios";
 import { IProperty } from "../interfaces/IProperty";
 
+/**
+ * Classifies a property with relevant tags using an AI model.
+ *
+ * @param {IProperty} property - The property object to be classified.
+ * @returns {Promise<string[]>} A promise that resolves to an array of tags.
+ */
 export async function classifyProperty(property: IProperty): Promise<string[]> {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
   const prompt = `Classify this property with relevant tags. Return ONLY a valid JSON array of tags. Property details: ${JSON.stringify(property)}`;
@@ -57,6 +63,12 @@ export async function classifyProperty(property: IProperty): Promise<string[]> {
   }
 }
 
+/**
+ * Extracts relevant classification tags from a user's request.
+ *
+ * @param {string} question - The user's search query.
+ * @returns {Promise<string[]>} A promise that resolves to an array of extracted tags.
+ */
 export async function getTagsForQuestion(question: string): Promise<string[]> {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
 
