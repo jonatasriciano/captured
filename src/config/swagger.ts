@@ -25,6 +25,10 @@ const options: swaggerJsdoc.Options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 // Function to setup Swagger in Express
+/**
+ *
+ * @param app
+ */
 export function setupSwagger(app: Express) {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   console.log(
