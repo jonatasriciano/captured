@@ -53,8 +53,11 @@ Captured API is a **Node.js** application built with **TypeScript**, **MongoDB**
 The application requires a \`.env\` file in the root directory to configure database and API keys:
 
 MONGO\_URI=mongodb://mongodb:27017/captureddb
+
 PORT=3000
+
 OPENAI\_API\_KEY=your\_openai\_api\_key
+
 GEMINI\_API\_KEY=your\_gemini\_api\_key
         
 
