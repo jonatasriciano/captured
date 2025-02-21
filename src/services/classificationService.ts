@@ -9,7 +9,8 @@ import { IProperty } from "../interfaces/IProperty";
  */
 export async function classifyProperty(property: IProperty): Promise<string[]> {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-  const prompt = `Classify this property with relevant tags. Return ONLY a valid JSON array of tags. Property details: ${JSON.stringify(property)}`;
+
+  const prompt = `Property details: ${JSON.stringify(property)}`;
 
   console.log("Prompt Sent to OpenAI:", prompt);
 
@@ -21,7 +22,9 @@ export async function classifyProperty(property: IProperty): Promise<string[]> {
         messages: [
           {
             role: "system",
-            content: `You are a professional real estate agent in Canada. Your job is to classify properties based on their features, location, and category. Always return tags in JSON format, with no additional text. Always in EN-US.`,
+            content: `You are a real estate AI assistant. Classify properties using all available details (description, size, price, location, amenities, etc.).
+                      Return ONLY a valid JSON array of classification tags in EN-US.
+                      Example output: ["Luxury", "Modern", "Ocean View", "Spacious", "High-end", "Affordable"].`,
           },
           { role: "user", content: prompt },
         ],
@@ -34,24 +37,23 @@ export async function classifyProperty(property: IProperty): Promise<string[]> {
       },
     );
 
-    // Extracts the response content
     let completion = response.data.choices[0].message.content.trim();
 
-    console.log("--- OpenAI Response (Raw):", completion);
+    console.log("OpenAI Response (Raw):", completion);
 
-    if (completion.startsWith("```json")) {
-      completion = completion.replace(/```json/, "").trim();
-    }
-    if (completion.endsWith("```")) {
-      completion = completion.replace(/```$/, "").trim();
-    }
+    completion = completion
+      .replace(/```json/, "")
+      .replace(/```$/, "")
+      .trim();
 
-    console.log("--- OpenAI Response (Cleaned):", completion);
+    console.log("OpenAI Response (Cleaned):", completion);
 
-    // Ensure the response is valid JSON
-    const tags = JSON.parse(completion);
+    const parsedResponse = JSON.parse(completion);
 
-    // Validate if response is an array
+    const tags = Array.isArray(parsedResponse)
+      ? parsedResponse
+      : parsedResponse.tags;
+
     if (!Array.isArray(tags)) {
       throw new Error("Invalid response format: Expected an array.");
     }
@@ -72,8 +74,7 @@ export async function classifyProperty(property: IProperty): Promise<string[]> {
 export async function getTagsForQuestion(question: string): Promise<string[]> {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
 
-  const prompt = `Extract relevant property tags from the following user request. Return ONLY a JSON array with the classification tags. User request: "${question}". Always in EN-US.`;
-  console.log("--- Prompt Sent to OpenAI:", prompt);
+  console.log("Prompt Sent to OpenAI:", question);
 
   try {
     const response = await axios.post(
@@ -83,9 +84,11 @@ export async function getTagsForQuestion(question: string): Promise<string[]> {
         messages: [
           {
             role: "system",
-            content: `You are a professional real estate agent in Canada. Your task is to extract real estate classification tags from user requests. Always return a JSON array of tags, with no additional text. Always in EN-US`,
+            content: `You are a real estate AI assistant. Extract classification tags from user queries.
+                      Return ONLY a valid JSON array of tags in EN-US.
+                      Example output: ["Luxury", "Modern", "Ocean View", "Spacious", "High-end", "Affordable"].`,
           },
-          { role: "user", content: prompt },
+          { role: "user", content: question },
         ],
       },
       {
@@ -96,15 +99,12 @@ export async function getTagsForQuestion(question: string): Promise<string[]> {
       },
     );
 
-    // Extracts the response content
-    const completion = response.data.choices[0].message.content;
+    const completion = response.data.choices[0].message.content.trim();
 
-    console.log("--- OpenAI Response:", completion);
+    console.log("OpenAI Response:", completion);
 
-    // Ensure the response is valid JSON
     const tags = JSON.parse(completion);
 
-    // Validate if response is an array
     if (!Array.isArray(tags)) {
       throw new Error("Invalid response format: Expected an array.");
     }
